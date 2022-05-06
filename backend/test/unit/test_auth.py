@@ -58,4 +58,11 @@ def test_get_user_info_by_mail():
 
     # Try to login with a valid email adress
     user = controller.get_user_by_email('janel.doe@mail.com')
+    assert user['firstName'] == 'Janel'
+
+    data = {'firstName': 'Janel', 'lastName': 'Doe', 'email': 'janel.doe@mail.com'}
+    user = controller.create(data)
+
+    # Try to login with a valid email adress
+    user = controller.get_user_by_email('janel.doe@mail.com')
     assert 'Error: more than one user found with mail' in captured.out
