@@ -22,36 +22,11 @@ def test_create():
     with pytest.raises(Exception):
         dao.create(data)
 
-    # Test to find a user with the same email
-    user = dao.find({'email': 'jane.doe@mail.com'})
-    assert user[0]['firstName'] == 'Jane' and user[0]['email'] == 'jane.doe@mail.com'
-
-    # Test to find a user with invalid email
-    user = dao.find({'email': 'janel.doe@mail'})
-    assert user == []
-
-    # Find user with valid id
-    userId = dao.find({'email': 'jane.doe@mail.com'})
-    user = dao.findOne(userId[0]['_id']['$oid'])
-    assert user['firstName'] == 'Jane' and user['email'] == 'jane.doe@mail.com'
-      
-    # Find user with invalid id
-    userId = '123132313'
+    # Test with wrong values
+    data = {'firstName': 123, 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
     with pytest.raises(Exception):
-        dao.findOne(userId)
+        dao.create(data)
 
-    # Test updaing user information
-    user = dao.find({'email': 'jane.doe@mail.com'})
-    userId = user[0]['_id']['$oid']
-    newUser = dao.update(userId, {'$set': {'firstName': 'Janel'}})
-    assert newUser == True
-
-    # Test deleting user
-    user = dao.find({'email': 'jane.doe@mail.com'})
-    userId = user[0]['_id']['$oid']
-    user = dao.delete(userId)
-    print(user)
-    assert user == True
 
 
 
