@@ -5,9 +5,9 @@ from src.util.helpers import hasAttribute, ValidationHelper
 from src.controllers.usercontroller import UserController
 from src.util.daos import getDao
 
-controller = UserController(getDao(collection_name='user'))
+# controller = UserController(getDao(collection_name='user'))
 
-# # tests for the hasAttribute method
+# tests for the hasAttribute method
 # @pytest.mark.demo
 # @pytest.mark.parametrize('obj, expected', [({'name': 'Jane'}, True), ({'email': 'jane.doe@gmail.com'}, False), (None, False)])
 # def test_hasAttribute_true(obj, expected):
@@ -28,23 +28,23 @@ controller = UserController(getDao(collection_name='user'))
 #     assert validationresult == expected
 
 # def create_user():
-    # Creating a user with valid data
+#     # Creating a user with valid data
     
 
-    # # Creating a user with a invalid email
-    # data = {'firstName': 'Janel', 'lastName': 'Doe', 'email': 'janel.doe@mail'}
-    # user = controller.create(data)
-    # assert user is None
+#     # Creating a user with a invalid email
+#     data = {'firstName': 'Janel', 'lastName': 'Doe', 'email': 'janel.doe@mail'}
+#     user = controller.create(data)
+#     assert user is None
 
-    # # Creating a user with empty fields show return list index out of range error
-    # data = {'firstName': '', 'lastName': '', 'email': ''}
-    # user = controller.create(data)
-    # assert user is None
+#     # Creating a user with empty fields show return list index out of range error
+#     data = {'firstName': '', 'lastName': '', 'email': ''}
+#     user = controller.create(data)
+#     assert user is None
 
-    # # Try to register a user with an existing email
-    # data = {'firstName': 'Janel', 'lastName': 'Doe', 'email': 'janel.doe@mail.com'}
-    # user = controller.create(data)
-    # assert user is None
+#     # Try to register a user with an existing email
+#     data = {'firstName': 'Janel', 'lastName': 'Doe', 'email': 'janel.doe@mail.com'}
+#     user = controller.create(data)
+#     assert user is None
 
 
 def test_get_user_info_by_mail(capsys):
