@@ -12,18 +12,21 @@ def test_create():
 
     # Object containing all required properties and complies with bson type constraints
     # Should return: the newly created object
+    # Test case id: TC1
     data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
     user = dao.create(data)
     assert user['firstName'] == 'Jane'
 
     # Object missing required property
     # Should raise: WriteError
+    # Test case id: TC2
     with pytest.raises(Exception):
         data = {'firstName': 'Jane', 'lastName': 'Doe'}
         user = dao.create(data)
 
     # Object containing property with invalid bson type
     # Should raise: WriteError
+    # Test case id: TC3
     with pytest.raises(Exception):
         data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': {'hello': 'world'}}
         user = dao.create(data)
