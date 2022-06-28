@@ -1,30 +1,32 @@
 import email
-from unittest import mock
 import pytest
+from src.util.dao import DAO
+from src.util.daos import getDao
 
 def test_create():
     """
-    test creating a user
+    test DAO.create()
     """
 
-    dao = mock.MagicMock()
+    dao = DAO(collection_name='user')
 
-    # Test with correct parameters should return a user object
+    # Object containing all required properties and complies with bson type constraints
+    # Should return: the newly created object
     data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
     user = dao.create(data)
     assert user['firstName'] == 'Jane'
 
-    # # Test with wrong key name should return WriteError
-    # data = {'first_name': 'Jane', 'last_name': 'Doe', 'email': 'jane.doe@mail.com'}
-    # # should raise an error WriteError
-    # with pytest.raises(Exception):
-    #     dao.create(data)
-
-    # Test with wrong values
-    data = {'firstName': 123, 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
+    # Object missing required property
+    # Should raise: WriteError
     with pytest.raises(Exception):
-        dao.create(data)
+        data = {'firstName': 'Jane', 'lastName': 'Doe'}
+        user = dao.create(data)
 
+    # Object containing property with invalid bson type
+    # Should raise: WriteError
+    with pytest.raises(Exception):
+        data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': {'hello': 'world'}}
+        user = dao.create(data)
 
 
 

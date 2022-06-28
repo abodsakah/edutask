@@ -19,16 +19,19 @@ def test_get_user_info_by_mail(capsys):
 
     # Loging in with a unique, valid email address that is associated to a user
     # Should return: user object
+    # Test case id: TC1
     user = controller.get_user_by_email("jane.doe@mail.com")
     assert user['firstName'] == 'Jane'
 
     # valid email address that is not associated to a user
     # Should return: None
+    # Test case id: TC3
     user = controller.get_user_by_email("jane@mail.com")
     assert user is None
 
     # Invalid format email address
     # Should return: ValueError
+    # Test case id: TC3
     with pytest.raises(ValueError):
         user = controller.get_user_by_email("jane.doe@mail")
 
@@ -38,5 +41,6 @@ def test_get_user_info_by_mail(capsys):
 
     # Loging in with a none unique, valid email address that is associated to multiple users
     # Should return: IndexError
+    # Test case id: TC2
     user = controller.get_user_by_email("jane.doe@mail.com")
     assert 'Error: more than one user found with mail ' in captured.out
