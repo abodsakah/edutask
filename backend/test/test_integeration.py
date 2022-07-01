@@ -12,6 +12,7 @@ def test_case_1():
     data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
     user = dao.create(data)
     assert user['firstName'] == 'Jane'
+    dao.delete(user['_id']['$oid'])
 
 def test_case_2():
     
