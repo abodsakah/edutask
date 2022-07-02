@@ -6,7 +6,11 @@ from src.util.daos import getDao
 controller = UserController(getDao(collection_name='user'))
 
 data = {'firstName': 'Jane', 'lastName': 'Doe', 'email': 'jane.doe@mail.com'}
-controller.create(data)
+newUser = controller.create(data)
+
+userIds = []
+
+userIds.append(newUser['_id']['$oid'])
 
 def test_case_1():
     """
@@ -33,12 +37,17 @@ def test_case_2(capfd):
     out, err = capfd.readouterr()
     
     data = {'firstName': 'Janel', 'lastName': 'Doel', 'email': 'jane.doe@mail.com'}
-    controller.create(data)
+    newUser = controller.create(data)
+    userIds.append(newUser['_id']['$oid'])
 
     # Loging in with a none unique, valid email address that is associated to multiple users
     # Should return: IndexError
     # Test case id: TC2
     user = controller.get_user_by_email("jane.doe@mail.com")
+    
+    for userId in userIds:
+        controller.delete(userId)
+
     assert out == 'Error: more than one user found with mail jane.doe@mail.com\n'
 
 def test_case_3():
@@ -97,4 +106,3 @@ def test_case_6():
     #Test case id: TC6
     with pytest.raises(Exception):
         user = controller.get_user_by_email("jane.doe@")
-
